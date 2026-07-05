@@ -12,7 +12,16 @@ const meetingRoutes = require("./routes/meetings");
 const app = express();
 const server = http.createServer(app);
 
-const CLIENT_URL = (process.env.CLIENT_URL || "http://localhost:5173").trim();
+const rawClientUrl = process.env.CLIENT_URL || "http://localhost:5173";
+const CLIENT_URL = rawClientUrl.trim();
+
+// Temporary diagnostic — shows exact character codes to catch hidden newlines/unicode chars
+console.log(`[cors] CLIENT_URL raw length: ${rawClientUrl.length}`);
+console.log(`[cors] CLIENT_URL trimmed length: ${CLIENT_URL.length}`);
+console.log(
+  `[cors] CLIENT_URL char codes: ${[...CLIENT_URL].map((c) => c.charCodeAt(0)).join(",")}`
+);
+console.log(`[cors] CLIENT_URL value: ${JSON.stringify(CLIENT_URL)}`);
 
 app.use(cors({ origin: CLIENT_URL }));
 app.use(express.json());
