@@ -12,7 +12,7 @@ const meetingRoutes = require("./routes/meetings");
 const app = express();
 const server = http.createServer(app);
 
-const CLIENT_URL = process.env.CLIENT_URL || "http://localhost:5173";
+const CLIENT_URL = (process.env.CLIENT_URL || "http://localhost:5173").trim();
 
 app.use(cors({ origin: CLIENT_URL }));
 app.use(express.json());
